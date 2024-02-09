@@ -1,11 +1,11 @@
 import { sql } from "@vercel/postgres";
 
-export default async function Cart({
+export default async function Todos({
   params,
 }: {
   params: { user: string };
 }): Promise<JSX.Element> {
-  const { rows } = await sql`SELECT * from CARTS where user_id=${params.user}`;
+  const { rows } = await sql`SELECT * from Todos where `;
 
   return (
     <div>
