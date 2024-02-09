@@ -21,3 +21,12 @@ model Todos {
   updated_at DateTime
   priority Boolean
 }
+
+model Users {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  created_at DateTime
+  updated_at DateTime
+}
