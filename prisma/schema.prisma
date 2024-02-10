@@ -1,32 +1,28 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
+  url = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Todos {
-  id String @id @default(uuid())
-  title String
+  id          String    @default(cuid()) @id
+  title       String
   description String
-  status Boolean
-  created_at DateTime
-  updated_at DateTime
-  priority Boolean
+  status      Boolean @default(false)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  priority    Boolean @default(false)
 }
 
 model Users {
-  id String @id @default(uuid())
+  id String @default(cuid()) @id
   name String
-  email String
+  email String @unique
   password String
-  created_at DateTime
-  updated_at DateTime
-}
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+} 
