@@ -1,19 +1,27 @@
-import { sql } from "@vercel/postgres";
+import { neon } from "@neondatabase/serverless";
 
-export default async function Todos({
-  params,
-}: {
-  params: { user: string };
-}): Promise<JSX.Element> {
-  const { rows } = await sql`SELECT * from Todos where `;
+type Todos = {
+  id: string;
+  title: string;
+  desciption: string;
+  status: boolean;
+  created_at: Date;
+  updated_at: Date;
+  priority: boolean;
+};
 
+async function getTodos() {
+  const sql = neon(process.env.DATABASE_URL);
+  const responce = await sql`SELECT * FROM "Todos"`;
+  return responce;
+}
+
+export default async function Page() {
+  const data = await getTodos();
+  console.log(data);
   return (
-    <div>
-      {rows.map((row) => (
-        <div key={row.id}>
-          {row.id} - {row.quantity}
-        </div>
-      ))}
-    </div>
+    <>
+      <h1>Todoリスト</h1>
+    </>
   );
 }
