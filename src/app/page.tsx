@@ -1,11 +1,5 @@
-import TodoList from "./components/TodoList";
-import AddTask from "./components/AddTask";
+import { TodoList } from "./components/TodoList";
 
-export default function TodoPage() {
-  return (
-    <>
-      <TodoList />
-      <AddTask />
-    </>
-  );
+export default function Home() {
+  return <TodoList />;
 }
