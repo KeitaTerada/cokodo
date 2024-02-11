@@ -12,7 +12,7 @@ datasource db {
 }
 
 model Todos {
-  id String @default(cuid()) @id
+  id Int @id @default(autoincrement())
   title String
   description String?
   status Boolean @default(false)

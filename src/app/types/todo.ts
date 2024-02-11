@@ -1,7 +1,7 @@
 /* Todoの型付け*/
 
 export type Todo = {
-  id: string;
+  id: number;
   title: string;
   description: string;
   status: boolean;
