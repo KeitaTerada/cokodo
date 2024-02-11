@@ -1,19 +1,7 @@
-import { sql } from "@vercel/postgres";
+import TodoList from "./components/TodoList";
+import AddTask from "./components/AddTask";
+import styles from "./page.module.css";
 
-export default async function Todos({
-  params,
-}: {
-  params: { user: string };
-}): Promise<JSX.Element> {
-  const { rows } = await sql`SELECT * from Todos where `;
-
-  return (
-    <div>
-      {rows.map((row) => (
-        <div key={row.id}>
-          {row.id} - {row.quantity}
-        </div>
-      ))}
-    </div>
-  );
+export default function TodoPage() {
+  return <></>;
 }
