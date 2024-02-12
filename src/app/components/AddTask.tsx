@@ -7,7 +7,8 @@ type ModalProps = {
 };
 
 export default function AddTask({ buttonLabel }: ModalProps) {
-  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,7 +23,7 @@ export default function AddTask({ buttonLabel }: ModalProps) {
           className="rounded"
           onSubmit={async (e) => {
             e.preventDefault();
-            if (!inputValue) alert("入力してください");
+            if (!title) alert("入力してください");
             const response = await fetch(
               `${process.env.NEXT_PUBLIC_API_URL}/todo`,
               {
@@ -30,13 +31,14 @@ export default function AddTask({ buttonLabel }: ModalProps) {
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ title: inputValue }),
+                body: JSON.stringify({ title, description }),
               }
             );
             const newTodo = await response.json();
 
             setTodos([...todos, newTodo]);
-            setInputValue(null);
+            setTitle(null);
+            setDescription(null);
           }}
         >
           <div>
@@ -44,8 +46,8 @@ export default function AddTask({ buttonLabel }: ModalProps) {
             <input
               id="title"
               type="text"
-              value={inputValue || ""}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={title || ""}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="Todoを入力してください"
             />
           </div>
@@ -54,8 +56,8 @@ export default function AddTask({ buttonLabel }: ModalProps) {
             <input
               id="descriptiopn"
               type="text"
-              value={inputValue || ""}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={description || ""}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="Todoを入力してください"
             />
           </div>

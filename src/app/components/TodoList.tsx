@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Todo } from "../types/todo";
 
 export function TodoList() {
-  const [inputValue, setInputValue] = useState<string | null>(null);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
@@ -17,18 +16,18 @@ export function TodoList() {
   }, []);
 
   return (
-    /* liタグの中に各タスクをいれる  */
     <>
       <h1>Todo list</h1>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
+            {/* チェック処理 */}
             <input
               type="checkbox"
               checked={todo.status}
               onChange={async () => {
                 const response = await fetch(
-                  `${process.env.NEXT_PUBLIC_API_URL}/todo${todo.id}`,
+                  `${process.env.NEXT_PUBLIC_API_URL}/todo/${todo.id}`,
                   {
                     method: "PATCH",
                     headers: {
@@ -49,6 +48,22 @@ export function TodoList() {
                 );
               }}
             />
+            {/* 削除処理 */}
+            <button
+              onClick={async (e) => {
+                e.preventDefault();
+                const response = await fetch(
+                  `${process.env.NEXT_PUBLIC_API_URL}/todo/${todo.id}`,
+                  {
+                    method: "DELETE",
+                  }
+                );
+                const deleteTodo = await response.json();
+                setTodos(todos.filter((todo) => todo.id !== deleteTodo.id));
+              }}
+            >
+              削除
+            </button>
             <p>{todo.title}</p>
             <p>{todo.description}</p>
           </li>
