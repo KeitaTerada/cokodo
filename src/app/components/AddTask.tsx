@@ -3,14 +3,15 @@ import { useState } from "react";
 import { Todo } from "../types/todo";
 
 export default function AddTask() {
-  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
   const [todos, setTodos] = useState<Todo[]>([]);
   return (
     <>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          if (!inputValue) alert("入力してください");
+          if (!title) alert("TODOタイトルを入力してください");
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/todo`,
             {
@@ -18,28 +19,27 @@ export default function AddTask() {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ title: inputValue }),
+              body: JSON.stringify({ title, description }),
             }
           );
           const newTodo = await response.json();
 
           setTodos([...todos, newTodo]);
-          setInputValue(null);
+          setTitle(null);
+          setDescription(null);
         }}
       >
         <input
-          id="title"
           type="text"
-          value={inputValue || ""}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Todoを入力してください"
+          value={title || ""}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Todoのタイトルを入力してください"
         />
         <input
-          id="descriptiopn"
           type="text"
-          value={inputValue || ""}
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Todoを入力してください"
+          value={description || ""}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="TODOの説明を入力してください。"
         />
         <button type="submit">追加</button>
       </form>
