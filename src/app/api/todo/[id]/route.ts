@@ -7,9 +7,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const id = params.id;
+  const id = Number(params.id);
   const { status }: { status: boolean } = await request.json();
-
+  // リクエストのidを元にstatusを反転させる
   const response = await prisma.todos.update({
     where: {
       id,
@@ -25,7 +25,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const id = params.id;
+  const id = Number(params.id);
   const response = await prisma.todos.delete({
     where: {
       id,

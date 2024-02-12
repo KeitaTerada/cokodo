@@ -8,14 +8,16 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { title }: { title: string } = await request.json();
-  const { description }: { description: string } = await request.json();
+  /* request.json()は重複してるとエラーが出る */
+  const body = await request.json();
+  const { title, description }: { title: string; description: string } = body;
 
   const response = await prisma.todos.create({
     data: {
-      title,
-      description,
+      title: title,
+      description: description,
     },
   });
+
   return Response.json(response);
 }

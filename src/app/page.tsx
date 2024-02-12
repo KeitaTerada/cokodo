@@ -1,5 +1,6 @@
-import { TodoList } from "./components/TodoList";
+"use client";
 import AddTask from "./components/AddTask";
+import { TodoList } from "./components/TodoList";
 import { useState } from "react";
 
 export default function TodoPage() {
@@ -10,7 +11,7 @@ export default function TodoPage() {
         <div className="mb-64">
           <p className="font-bold text-6xl">タスク管理</p>
           <TodoList></TodoList>
-          <div className="z-2 w-2/5 rounded-2xl bg-[rgba(0, 0, 0, 0.5)]] text-blue-600 text-3xl text-center py-4">
+          <div className="w-2/5 rounded-2xl bg-[rgba(0, 0, 0, 0.5)]] text-blue-600 text-3xl text-center py-4">
             <AddTask buttonLabel="+ タスクの追加"></AddTask>
           </div>
         </div>
