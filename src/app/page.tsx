@@ -10,13 +10,7 @@ export default function TodoPage() {
       <div className="w-1/2 mt-48 mx-auto">
         <div className="mb-64">
           <p className="font-bold text-6xl">タスク管理</p>
-          <TodoList></TodoList>
-          <div className="w-2/5 rounded-2xl bg-[rgba(0, 0, 0, 0.5)]] text-blue-600 text-3xl text-center py-4">
-            <AddTask buttonLabel="+ タスクの追加"></AddTask>
-          </div>
-        </div>
-        <div className="">
-          <p className="font-bold text-4xl">終了済みタスク</p>
+          <TodoList />
         </div>
       </div>
     </>

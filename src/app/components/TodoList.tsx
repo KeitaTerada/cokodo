@@ -5,6 +5,8 @@ import { Todo } from "../types/todo";
 
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [title, setTItle] = useState<string | null>(null);
+  const [description, setDescription] = useState<string | null>(null);
 
   useEffect(() => {
     const gettodo = async () => {
@@ -17,7 +19,47 @@ export function TodoList() {
 
   return (
     <>
-      <h1>Todo list</h1>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          if (!title) alert("タイトルを入力してください");
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/todo`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ title, description }),
+            }
+          );
+          const newTodo = await response.json();
+
+          setTodos([...todos, newTodo]);
+          setTItle(null);
+          setDescription(null);
+        }}
+      >
+        <div>
+          <p>タイトル</p>
+          <input
+            id="title"
+            type="text"
+            value={title || ""}
+            onChange={(e) => setTItle(e.target.value)}
+          />
+        </div>
+        <div>
+          <p>タスク詳細</p>
+          <input
+            id="description"
+            type="text"
+            value={description || ""}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <button type="submit">追加</button>
+      </form>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
@@ -64,7 +106,7 @@ export function TodoList() {
             >
               削除
             </button>
-            <p>{todo.title}</p>
+            <p className="">{todo.title}</p>
             <p>{todo.description}</p>
           </li>
         ))}

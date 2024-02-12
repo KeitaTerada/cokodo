@@ -33,5 +33,3 @@ export async function DELETE(
   });
   return Response.json(response);
 }
-
-export const dynamic = "force-static";
