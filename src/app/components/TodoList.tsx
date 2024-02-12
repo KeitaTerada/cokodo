@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Todo } from "../types/todo";
+import Image from "next/image";
 
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -17,12 +18,12 @@ export function TodoList() {
 
   return (
     <>
-      <h1>Todo list</h1>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>
+          <li className="bg-white" key={todo.id}>
             {/* チェック処理 */}
             <input
+              className=""
               type="checkbox"
               checked={todo.status}
               onChange={async () => {
@@ -64,8 +65,8 @@ export function TodoList() {
             >
               削除
             </button>
-            <p>{todo.title}</p>
-            <p>{todo.description}</p>
+            <p className="text-3xl">{todo.title}</p>
+            <p className="text-[#ACABAB]">{todo.description}</p>
           </li>
         ))}
       </ul>

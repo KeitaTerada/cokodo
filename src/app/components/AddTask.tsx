@@ -42,7 +42,7 @@ export default function AddTask({ buttonLabel }: ModalProps) {
           }}
         >
           <div>
-            <p className="font-bold">タイトル</p>
+            <p className="font-bold text-black">タイトル</p>
             <input
               id="title"
               type="text"
@@ -52,7 +52,7 @@ export default function AddTask({ buttonLabel }: ModalProps) {
             />
           </div>
           <div>
-            <p className="font-bold">タスク詳細</p>
+            <p className="font-bold text-black">タスク詳細</p>
             <input
               id="descriptiopn"
               type="text"
@@ -61,7 +61,7 @@ export default function AddTask({ buttonLabel }: ModalProps) {
               placeholder="Todoを入力してください"
             />
           </div>
-          <div className="rounded-xl bg-blue-400 text-white-400 font-bold">
+          <div className="rounded-xl bg-blue-400 text-white font-bold py-2">
             <button onClick={toggleModal} type="submit">
               追加
             </button>
